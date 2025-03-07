@@ -1,19 +1,13 @@
 package com.forsteri.createendertransmission.blocks.chunkLoader;
 
-import com.jozufozu.flywheel.api.Instancer;
-import com.jozufozu.flywheel.api.MaterialManager;
 import com.simibubi.create.AllPartialModels;
-import com.simibubi.create.content.kinetics.base.SingleRotatingInstance;
-import com.simibubi.create.content.kinetics.base.flwdata.RotatingData;
+import com.simibubi.create.content.kinetics.base.SingleAxisRotatingVisual;
+import dev.engine_room.flywheel.api.visualization.VisualizationContext;
+import dev.engine_room.flywheel.lib.model.Models;
 import net.minecraft.core.Direction;
 
-public class LoaderInstance extends SingleRotatingInstance<LoaderBlockEntity> {
-    public LoaderInstance(MaterialManager modelManager, LoaderBlockEntity tileEntity) {
-        super(modelManager, tileEntity);
-    }
-
-    @Override
-    protected Instancer<RotatingData> getModel() {
-        return getRotatingMaterial().getModel(AllPartialModels.SHAFT_HALF, blockState, Direction.DOWN);
+public class LoaderInstance extends SingleAxisRotatingVisual<LoaderBlockEntity> {
+    public LoaderInstance(VisualizationContext context, LoaderBlockEntity blockEntity, float partialTick) {
+        super(context, blockEntity, partialTick, Direction.DOWN, Models.partial(AllPartialModels.SHAFT_HALF));
     }
 }

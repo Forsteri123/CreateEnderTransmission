@@ -1,6 +1,6 @@
 package com.forsteri.createendertransmission.mixin;
 
-import com.simibubi.create.content.contraptions.MountedFluidStorage;
+import com.simibubi.create.api.contraption.storage.fluid.MountedFluidStorage;
 import com.forsteri.createendertransmission.blocks.fluidTrasmitter.FluidTransmitterBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.spongepowered.asm.mixin.Mixin;

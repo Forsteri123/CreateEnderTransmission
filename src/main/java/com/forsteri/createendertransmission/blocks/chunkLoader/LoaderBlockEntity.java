@@ -1,10 +1,9 @@
 package com.forsteri.createendertransmission.blocks.chunkLoader;
 
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
-import com.simibubi.create.foundation.utility.Components;
-import com.simibubi.create.foundation.utility.Lang;
-import com.simibubi.create.foundation.utility.LangBuilder;
+import com.simibubi.create.foundation.utility.CreateLang;
 import com.forsteri.createendertransmission.CreateEnderTransmission;
+import net.createmod.catnip.lang.LangBuilder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -52,9 +51,9 @@ public class LoaderBlockEntity extends KineticBlockEntity {
 
         int radius = (int) Math.abs(getSpeed()) / 128 * 2 + 1;
 
-        Lang.builder().space().addTo(tooltip);
+        CreateLang.builder().space().addTo(tooltip);
 
-        new LangBuilder(CreateEnderTransmission.MOD_ID).add(Components.translatable(
+        new LangBuilder(CreateEnderTransmission.MOD_ID).add(Component.translatable(
                 CreateEnderTransmission.MOD_ID + ".chunk_loader.loaded",
                 radius * radius
                 )).style(ChatFormatting.GREEN).forGoggles(tooltip);

@@ -1,6 +1,6 @@
 package com.forsteri.createendertransmission.entry;
 
-import com.simibubi.create.content.kinetics.base.ShaftInstance;
+import com.simibubi.create.content.kinetics.base.ShaftVisual;
 import com.simibubi.create.foundation.blockEntity.renderer.SmartBlockEntityRenderer;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
@@ -18,14 +18,14 @@ public class TransmissionBlockEntities {
 
     public static final BlockEntityEntry<LoaderBlockEntity> CHUNK_LOADER_TILE = REGISTRATE
             .blockEntity("chunk_loader", LoaderBlockEntity::new)
-            .instance(() -> LoaderInstance::new, false)
+            .visual(() -> LoaderInstance::new, false)
             .validBlocks(TransmissionBlocks.CHUNK_LOADER_BLOCK)
             .renderer(() -> SmartBlockEntityRenderer::new)
             .register();
 
     public static final BlockEntityEntry<EnergyTransmitterBlockEntity> ENERGY_TRANSMITTER_TILE = REGISTRATE
             .blockEntity("energy_transmitter", EnergyTransmitterBlockEntity::new)
-            .instance(() -> ShaftInstance::new, false)
+            .visual(() -> ShaftVisual::new, false)
             .validBlocks(TransmissionBlocks.ENERGY_TRANSMITTER_BLOCK)
             .renderer(() -> SmartBlockEntityRenderer::new)
             .register();

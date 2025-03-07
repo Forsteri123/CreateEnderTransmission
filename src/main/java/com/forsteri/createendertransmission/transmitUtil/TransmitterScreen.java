@@ -2,18 +2,18 @@ package com.forsteri.createendertransmission.transmitUtil;
 
 import com.forsteri.createendertransmission.entry.TransmissionPackets;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
-import com.simibubi.create.foundation.gui.AbstractSimiScreen;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 import com.simibubi.create.foundation.gui.AllIcons;
-import com.simibubi.create.foundation.gui.element.GuiGameElement;
 import com.simibubi.create.foundation.gui.widget.IconButton;
 import com.simibubi.create.foundation.gui.widget.Label;
 import com.simibubi.create.foundation.gui.widget.ScrollInput;
 import com.simibubi.create.foundation.gui.widget.SelectionScrollInput;
-import com.simibubi.create.foundation.utility.Components;
-import com.simibubi.create.foundation.utility.Lang;
+import com.simibubi.create.foundation.utility.CreateLang;
+import net.createmod.catnip.gui.AbstractSimiScreen;
+import net.createmod.catnip.gui.element.GuiGameElement;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public class TransmitterScreen extends AbstractSimiScreen {
     public ItemStack renderedItem;
 
     public TransmitterScreen(KineticBlockEntity te, ItemStack renderedItem) {
-        super(Lang.translateDirect("gui.sequenced_gearshift.title"));
+        super(CreateLang.translateDirect("gui.sequenced_gearshift.title"));
         this.te = te;
         this.renderedItem = renderedItem;
     }
@@ -49,33 +49,33 @@ public class TransmitterScreen extends AbstractSimiScreen {
         guiGraphics.drawString(font, renderedItem.getHoverName(), x + 11, y + 4, 0x6B3802, false);
 
         GuiGameElement.of(renderedItem)
-                .<GuiGameElement.GuiRenderBuilder>at(x + background.width + 6, y + background.height - 56, -200)
+                .<GuiGameElement.GuiRenderBuilder>at(x + background.getWidth() + 6, y + background.getHeight() - 56, -200)
                 .scale(5)
                 .render(guiGraphics);
     }
 
     @Override
     protected void init() {
-        setWindowSize(background.width, background.height);
+        setWindowSize(background.getWidth(), background.getHeight());
         setWindowOffset(-20, 0);
         super.init();
 
         int x = guiLeft;
         int y = guiTop;
 
-        labelChannel = new Label(x + 49, y + 28, Components.immutableEmpty()).colored(0xFFFFFFFF)
+        labelChannel = new Label(x + 49, y + 28, Component.empty()).colored(0xFFFFFFFF)
                 .withShadow();
 
         areaChannel = new SelectionScrollInput(x + 45, y + 21, 109, 18).forOptions(
-                        List.of(Components.translatable("transmitter.network.1"), Components.translatable("transmitter.network.2"), Components.translatable("transmitter.network.3"), Components.translatable("transmitter.network.4"), Components.translatable("transmitter.network.5"), Components.translatable("transmitter.network.6"), Components.translatable("transmitter.network.7"), Components.translatable("transmitter.network.8"), Components.translatable("transmitter.network.9"), Components.translatable("transmitter.network.10"))
+                        List.of(Component.translatable("transmitter.network.1"), Component.translatable("transmitter.network.2"), Component.translatable("transmitter.network.3"), Component.translatable("transmitter.network.4"), Component.translatable("transmitter.network.5"), Component.translatable("transmitter.network.6"), Component.translatable("transmitter.network.7"), Component.translatable("transmitter.network.8"), Component.translatable("transmitter.network.9"), Component.translatable("transmitter.network.10"))
                 )
-                .titled(Lang.translateDirect("gui.transmitter.channel_title").plainCopy())
+                .titled(CreateLang.translateDirect("gui.transmitter.channel_title").plainCopy())
                 .writingTo(labelChannel)
                 .setState(
                         ((ITransmitter) te).getChannel()
                 );
 
-        areaTestInput = new EditBox(font, x + 49, y + 50, 109, 18, Components.immutableEmpty());
+        areaTestInput = new EditBox(font, x + 49, y + 50, 109, 18, Component.empty());
         areaTestInput.setBordered(false);
         areaTestInput.setMaxLength(16);
         areaTestInput.setValue(
@@ -84,7 +84,7 @@ public class TransmitterScreen extends AbstractSimiScreen {
 
 
         confirmButton =
-                new IconButton(x + background.width - 33, y + background.height - 24, AllIcons.I_CONFIRM);
+                new IconButton(x + background.getWidth() - 33, y + background.getHeight() - 24, AllIcons.I_CONFIRM);
         confirmButton.withCallback(this::onClose);
 
         addRenderableWidget(labelChannel);

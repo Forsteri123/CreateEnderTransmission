@@ -5,7 +5,7 @@ import com.forsteri.createendertransmission.blocks.chunkLoader.LoaderBlock;
 import com.forsteri.createendertransmission.blocks.energyTransmitter.EnergyTransmitterBlock;
 import com.forsteri.createendertransmission.blocks.fluidTrasmitter.FluidTransmitterBlock;
 import com.forsteri.createendertransmission.blocks.itemTransmitter.ItemTransmitterBlock;
-import com.simibubi.create.content.kinetics.BlockStressDefaults;
+import com.simibubi.create.api.stress.BlockStressValues;
 import com.simibubi.create.foundation.data.BlockStateGen;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.BlockEntry;
@@ -42,7 +42,9 @@ public class TransmissionBlocks {
                     .model((context, provider) -> provider.withExistingParent(context.getName(), provider.modLoc("block/" + context.getName() + "/block")))
                     .build()
                     .addLayer(() -> RenderType::cutoutMipped)
-                    .transform(BlockStressDefaults.setImpact(16))
+                    .onRegister((block) -> {
+                        BlockStressValues.IMPACTS.register(block, () -> 16);
+                    })
                     .register();
 
     public static final BlockEntry<EnergyTransmitterBlock> ENERGY_TRANSMITTER_BLOCK =
@@ -57,7 +59,9 @@ public class TransmissionBlocks {
                     .model(NonNullBiConsumer.noop())
                     .transform(customItemModel())
                     .addLayer(() -> RenderType::cutoutMipped)
-                    .transform(BlockStressDefaults.setImpact(8))
+                    .onRegister((block) -> {
+                        BlockStressValues.IMPACTS.register(block, () -> 8.0);
+                    })
                     .register();
 
     public static final BlockEntry<ItemTransmitterBlock> ITEM_TRANSMITTER_BLOCK =
