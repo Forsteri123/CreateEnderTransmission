@@ -1,6 +1,5 @@
 package com.forsteri.createendertransmission.transmitUtil;
 
-import com.forsteri.createendertransmission.entry.TransmissionPackets;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 import com.simibubi.create.foundation.gui.AllIcons;
@@ -11,6 +10,7 @@ import com.simibubi.create.foundation.gui.widget.SelectionScrollInput;
 import com.simibubi.create.foundation.utility.CreateLang;
 import net.createmod.catnip.gui.AbstractSimiScreen;
 import net.createmod.catnip.gui.element.GuiGameElement;
+import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.network.chat.Component;
@@ -99,6 +99,6 @@ public class TransmitterScreen extends AbstractSimiScreen {
     @Override
     public void removed() {
         super.removed();
-        TransmissionPackets.channel.sendToServer(new ConfigureTransmitterPacket(te.getBlockPos(), areaChannel.getState(), areaTestInput.getValue()));
+        CatnipServices.NETWORK.sendToServer(new ConfigureTransmitterPacket(te.getBlockPos(), areaChannel.getState(), areaTestInput.getValue()));
     }
 }

@@ -3,7 +3,7 @@
 build/
 
 # Forge Gradle
-run/
+runs/
 
 # InteliJ
 .idea/**/dictionaries

@@ -1,5 +1,6 @@
 {
   "type": "create:mechanical_crafting",
+  "category": "misc",
   "pattern": [
     "OOSOO",
     "OMPMO",
@@ -9,7 +10,7 @@
   ],
   "key": {
     "S": {
-      "item": "create:mechanical_pump"
+      "item": "create:shaft"
     },
     "O": {
       "item": "minecraft:obsidian"
@@ -25,7 +26,8 @@
     }
   },
   "result": {
-    "item": "createendertransmission:fluid_transmitter"
+    "id": "createendertransmission:energy_transmitter",
+    "count": 1
   },
-  "acceptMirrored": true
+  "accept_mirrored": true
 }
