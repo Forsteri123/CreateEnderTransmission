@@ -42,7 +42,9 @@ public abstract class AbstractMatterTransmitterBlockEntity<T> extends KineticBlo
         INBTSerializable<CompoundTag> inv = getNetwork().defaultInv.get();
         channel.put(getPassword(), inv);
 
-        CreateEnderTransmission.savedData.setDirty();
+        if (CreateEnderTransmission.savedData != null) {
+            CreateEnderTransmission.savedData.setDirty();
+        }
 
         return inv;
     }
