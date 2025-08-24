@@ -1,9 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    "createendertransmission:chunk_loader",
-    "createendertransmission:energy_transmitter",
-    "createendertransmission:item_transmitter",
-    "createendertransmission:fluid_transmitter"
-  ]
-}

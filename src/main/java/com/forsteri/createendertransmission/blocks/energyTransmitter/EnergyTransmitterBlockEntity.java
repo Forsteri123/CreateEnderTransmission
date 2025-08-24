@@ -20,7 +20,7 @@ public class EnergyTransmitterBlockEntity extends KineticBlockEntity implements 
 
     @Override
     public boolean isCustomConnection(KineticBlockEntity other, BlockState state, BlockState otherState) {
-        if(other instanceof EnergyTransmitterBlockEntity otherTransmitter){
+        if (other instanceof EnergyTransmitterBlockEntity otherTransmitter) {
             return otherTransmitter.getChannel() == getChannel() &&
                     otherTransmitter.getLevel() == getLevel() &&
                     otherTransmitter.getPassword().equals(getPassword());
@@ -39,7 +39,7 @@ public class EnergyTransmitterBlockEntity extends KineticBlockEntity implements 
         return super.addPropagationLocations(block, state, neighbours);
     }
 
-    public List<KineticBlockEntity> getConnectedTransmitters(){
+    public List<KineticBlockEntity> getConnectedTransmitters() {
         Map<String, List<KineticBlockEntity>> channel = EnergyNetwork.ENERGY.channels.get(getChannel());
 
         channel.values().removeIf(List::isEmpty);
@@ -47,35 +47,28 @@ public class EnergyTransmitterBlockEntity extends KineticBlockEntity implements 
         channel.forEach((password, transmitters) -> transmitters.removeIf(blockEntity ->
                 !(blockEntity instanceof EnergyTransmitterBlockEntity transmitter)
                         ||
-                                transmitter.getChannel() != getChannel() || !transmitter.getPassword().equals(password)
-                        ));
+                        transmitter.getChannel() != getChannel() || !transmitter.getPassword().equals(password)
+        ));
 
         channel.values().forEach(list -> list.removeIf(BlockEntity::isRemoved));
 
         if (channel.containsKey(getPassword())) {
-            List<KineticBlockEntity> list = channel
-                    .get(getPassword());
+            List<KineticBlockEntity> list = channel.get(getPassword());
 
-            if(!list.contains(this))
+            if (!list.contains(this))
                 list.add(this);
-
-
-
             return list;
         }
 
         ArrayList<KineticBlockEntity> list = new ArrayList<>(List.of(this));
 
-        channel.put(
-                this.getPassword(),
-                list
-        );
+        channel.put(this.getPassword(), list);
 
         return list;
     }
 
     @Override
-    public void reloadSettings(){
+    public void reloadSettings() {
         getConnectedTransmitters().remove(this);
 
         if (level == null) return;
@@ -89,7 +82,7 @@ public class EnergyTransmitterBlockEntity extends KineticBlockEntity implements 
     }
 
     @Override
-    public void afterReload(){
+    public void afterReload() {
         if (level == null) return;
 
 //        if (hasNetwork())

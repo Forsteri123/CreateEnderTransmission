@@ -1,10 +1,15 @@
 package com.forsteri.createendertransmission.transmitUtil;
 
+import com.forsteri.createendertransmission.TransmissionPackets;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.foundation.networking.BlockEntityConfigurationPacket;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
+
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+
+import net.minecraft.server.level.ServerPlayer;
 
 public class ConfigureTransmitterPacket extends BlockEntityConfigurationPacket<KineticBlockEntity> {
 
@@ -17,31 +22,16 @@ public class ConfigureTransmitterPacket extends BlockEntityConfigurationPacket<K
         this.password = password;
     }
 
-    public ConfigureTransmitterPacket(FriendlyByteBuf buffer) {
-        super(buffer);
-    }
+    public static final StreamCodec<ByteBuf, ConfigureTransmitterPacket> STREAM_CODEC = StreamCodec.composite(
+            BlockPos.STREAM_CODEC, packet -> packet.pos,
+            ByteBufCodecs.VAR_INT, packet -> packet.channel,
+            ByteBufCodecs.STRING_UTF8, packet -> packet.password,
+            ConfigureTransmitterPacket::new
+    );
 
     @Override
-    protected void writeSettings(FriendlyByteBuf buffer) {
-        CompoundTag tag = new CompoundTag();
-        tag.putInt("channel", channel);
-        tag.putString("password", password);
-        buffer.writeNbt(tag);
-    }
-
-    @Override
-    protected void readSettings(FriendlyByteBuf buffer) {
-        CompoundTag tag = buffer.readNbt();
-        if (tag != null) {
-            channel = tag.getInt("channel");
-            password = tag.getString("password");
-        }
-
-    }
-
-    @Override
-    protected void applySettings(KineticBlockEntity tileEntity) {
-        if(
+    protected void applySettings(ServerPlayer serverPlayer, KineticBlockEntity tileEntity) {
+        if (
                 tileEntity.getPersistentData().getInt("channel") != channel ||
                         !tileEntity.getPersistentData().getString("password").equals(password)
         ) {
@@ -54,4 +44,8 @@ public class ConfigureTransmitterPacket extends BlockEntityConfigurationPacket<K
         }
     }
 
+    @Override
+    public PacketTypeProvider getTypeProvider() {
+        return TransmissionPackets.CONFIGURE_TRANSMITTER;
+    }
 }
