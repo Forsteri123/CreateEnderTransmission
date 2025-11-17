@@ -1,14 +1,19 @@
 package com.forsteri.createendertransmission;
 
+import com.forsteri.createendertransmission.blocks.AbstractMatterTransmitterBlockEntity;
 import com.forsteri.createendertransmission.blocks.MatterWorldSavedData;
 import com.forsteri.createendertransmission.entry.*;
 import com.simibubi.create.foundation.data.CreateRegistrate;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.level.LevelAccessor;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.level.LevelEvent;
 import net.neoforged.bus.api.IEventBus;
@@ -25,15 +30,17 @@ public class CreateEnderTransmission {
     public CreateEnderTransmission(IEventBus modEventBus, ModContainer modContainer) {
 //        NeoForge.EVENT_BUS.register(this);
 
-//        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
         REGISTRATE.registerEventListeners(modEventBus);
+
+        TransmissionTab.register(modEventBus);
+
+        CreateEnderTransmission.registrate()
+                .defaultCreativeTab((ResourceKey<CreativeModeTab>) null);
 
         TransmissionBlocks.register();
         TransmissionBlockEntities.register();
         TransmissionPackets.register();
         TransmissionLang.register();
-        TransmissionTab.register(modEventBus);
 
         modContainer.registerConfig(ModConfig.Type.COMMON, TransmissionConfig.SPEC, "createendertransmission-server.toml");
     }
@@ -60,6 +67,26 @@ public class CreateEnderTransmission {
             if (server == null || server.overworld() != level)
                 return;
             CreateEnderTransmission.savedData = MatterWorldSavedData.load(server);
+        }
+    }
+
+    @EventBusSubscriber(
+            bus = EventBusSubscriber.Bus.MOD
+    )
+    public static class ModBusEvents {
+        @SubscribeEvent
+        public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+            AbstractMatterTransmitterBlockEntity.registerCapabilities(
+                    Capabilities.FluidHandler.BLOCK,
+                    TransmissionBlockEntities.FLUID_TRANSMITTER_TILE_ENTITY.get(),
+                    event
+            );
+
+            AbstractMatterTransmitterBlockEntity.registerCapabilities(
+                    Capabilities.ItemHandler.BLOCK,
+                    TransmissionBlockEntities.ITEM_TRANSMITTER_TILE_ENTITY.get(),
+                    event
+            );
         }
     }
 

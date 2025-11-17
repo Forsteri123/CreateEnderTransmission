@@ -1,4 +1,4 @@
-package com.forsteri.createendertransmission;
+package com.forsteri.createendertransmission.entry;
 
 import com.forsteri.createendertransmission.transmitUtil.ConfigureTransmitterPacket;
 import net.createmod.catnip.net.base.BasePacketPayload;

@@ -2,6 +2,7 @@ package com.forsteri.createendertransmission.blocks;
 
 //import com.forsteri.createendertransmission.blocks.fluidTrasmitter.SerializableSmartFluidTank;
 import com.forsteri.createendertransmission.CreateEnderTransmission;
+import com.forsteri.createendertransmission.blocks.fluidTrasmitter.SerializableSmartFluidTank;
 import net.minecraft.nbt.CompoundTag;
 import net.neoforged.neoforge.common.util.INBTSerializable;
 import net.neoforged.neoforge.items.ItemStackHandler;
@@ -20,7 +21,8 @@ public enum MatterTransmitterNetwork {
             CreateEnderTransmission.savedData.setDirty();
         }
     }),
-//    FLUID(() -> new SerializableSmartFluidTank(1000, contents -> CreateEnderTransmission.savedData.setDirty()))
+    FLUID(() -> new SerializableSmartFluidTank(
+            1000, contents -> CreateEnderTransmission.savedData.setDirty()))
     ;
 
     public final List<Map<String, INBTSerializable<CompoundTag>>> channels;

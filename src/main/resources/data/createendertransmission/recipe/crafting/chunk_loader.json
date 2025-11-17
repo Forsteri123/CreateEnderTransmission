@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#D#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:obsidian"
+    },
+    "D": {
+      "item": "minecraft:beacon"
+    }
+  },
+  "result": {
+    "id": "createendertransmission:chunk_loader",
+    "count": 1
+  }
+}

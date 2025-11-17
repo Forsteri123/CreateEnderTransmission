@@ -1,6 +1,6 @@
 package com.forsteri.createendertransmission.transmitUtil;
 
-import com.forsteri.createendertransmission.TransmissionPackets;
+import com.forsteri.createendertransmission.entry.TransmissionPackets;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.foundation.networking.BlockEntityConfigurationPacket;
 import io.netty.buffer.ByteBuf;
