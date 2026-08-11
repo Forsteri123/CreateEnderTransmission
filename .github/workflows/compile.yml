@@ -1,21 +1,8 @@
-
-name: Compiling
-
-on:
-  push:
-  pull_request:
+name: Publish
+on: push
 
 jobs:
-  build:
+  run:
+    uses: Forsteri123/.github/.github/workflows/mc-publish.yml@master
+    secrets: inherit
 
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Compile
-      uses: Ruochenfu2011/compilation@v1
-      
-    - name: Archive Artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: Artifacts
-        path: ./build/libs
